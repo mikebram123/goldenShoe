@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class GoldenShoeApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void notting() {
+		System.out.println("nfej");
 	}
 
 }
