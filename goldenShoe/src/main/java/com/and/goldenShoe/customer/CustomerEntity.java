@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class CustomerEntity {
 	Set<BasketEntity> customerBasket = new HashSet<BasketEntity>();
 
 
-	@OneToMany(mappedBy="assignedCustomer", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="assignedCustomer", cascade = CascadeType.ALL)
 	@XmlTransient
 	public Set<BasketEntity> getCustomerBasket() {
 		return customerBasket;

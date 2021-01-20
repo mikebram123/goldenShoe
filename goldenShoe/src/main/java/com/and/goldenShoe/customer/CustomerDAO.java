@@ -1,10 +1,17 @@
 package com.and.goldenShoe.customer;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
-@Repository
+
+@RepositoryRestResource(path = "customer")
 public interface CustomerDAO extends CrudRepository<CustomerEntity, Integer>{
+	
+	@Query("SELECT c FROM CustomerEntity c WHERE LOWER(c.customerUser) = LOWER(:customerUser) AND c.customerPass = :customerPass")
+	public CustomerEntity findCustomerLogin(@Param("customerUser") String email, @Param("customerPass") String pass);
+
 
 }

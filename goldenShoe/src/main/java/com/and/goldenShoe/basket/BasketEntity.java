@@ -44,7 +44,6 @@ public class BasketEntity {
 
 	@ManyToOne
 	@JoinColumn(name="fk_customerID")
-	@XmlTransient
 	public CustomerEntity getAssignedCustomer() {
 		return assignedCustomer;
 	}
