@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class ProductEntity {
 	private String productName;
 	
 	@FormParam("productPrice")
-	private String productPrice;
+	private double productPrice;
 	
 	Set<ProductSizeAssignmentEntity> assignedProducts = new HashSet<ProductSizeAssignmentEntity>();
 	
@@ -35,7 +36,7 @@ public class ProductEntity {
 	
 	
 
-	@OneToMany(mappedBy="linkedProducts", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="linkedProducts", cascade = CascadeType.ALL)
 	@XmlTransient
 	public Set<ProductBasketAssignmentEntity> getAssignedBasketProducts() {
 		return assignedBasketProducts;
@@ -45,7 +46,7 @@ public class ProductEntity {
 		this.assignedBasketProducts = assignedBasketProducts;
 	}
 
-	@OneToMany(mappedBy="linkedProduct", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="linkedProduct", cascade=CascadeType.ALL)
 	@XmlTransient
 	public Set<ProductSizeAssignmentEntity> getAssignedProducts() {
 		return assignedProducts;
@@ -73,47 +74,17 @@ public class ProductEntity {
 		this.productName = productName;
 	}
 
-	public String getProductPrice() {
+	public double getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(String productPrice) {
+	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + productID;
-		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
-		result = prime * result + ((productPrice == null) ? 0 : productPrice.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductEntity other = (ProductEntity) obj;
-		if (productID != other.productID)
-			return false;
-		if (productName == null) {
-			if (other.productName != null)
-				return false;
-		} else if (!productName.equals(other.productName))
-			return false;
-		if (productPrice == null) {
-			if (other.productPrice != null)
-				return false;
-		} else if (!productPrice.equals(other.productPrice))
-			return false;
-		return true;
-	}
+
+
 	
 	
 	

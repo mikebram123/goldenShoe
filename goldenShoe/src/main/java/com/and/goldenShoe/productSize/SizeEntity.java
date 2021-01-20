@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class SizeEntity {
 	
 	
 
-	@OneToMany(mappedBy="linkedSize", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="linkedSize", cascade=CascadeType.ALL)
 	@XmlTransient
 	public Set<ProductSizeAssignmentEntity> getAssignedSize() {
 		return assignedSize;

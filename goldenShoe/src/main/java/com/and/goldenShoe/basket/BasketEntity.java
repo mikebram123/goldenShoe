@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +23,10 @@ import com.and.goldenShoe.productBasketAssignment.ProductBasketAssignmentEntity;
 @Table(name="basket")
 public class BasketEntity {
 	
+	public BasketEntity() {
+		this.currentBasket = true;
+	}
+	
 	private int basketID;
 	
 	@FormParam("totalValue")
@@ -31,8 +36,9 @@ public class BasketEntity {
 	
 	private Set<ProductBasketAssignmentEntity> basketProducts = new HashSet<ProductBasketAssignmentEntity>();
 	
+	private boolean currentBasket;
 	
-	@OneToMany(mappedBy= "linkedBasket", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy= "linkedBasket", cascade=CascadeType.ALL)
 	@XmlTransient
 	public Set<ProductBasketAssignmentEntity> getBasketProducts() {
 		return basketProducts;
@@ -69,6 +75,16 @@ public class BasketEntity {
 	public void setTotalValue(double totalValue) {
 		this.totalValue = totalValue;
 	}
+
+	public boolean isCurrentBasket() {
+		return currentBasket;
+	}
+
+	public void setCurrentBasket(boolean currentBasket) {
+		this.currentBasket = currentBasket;
+	}
+	
+	
 
 	
 	
