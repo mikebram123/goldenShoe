@@ -20,6 +20,8 @@ import com.and.goldenShoe.basket.BasketEntity;
 @Table(name="customer")
 public class CustomerEntity {
 	
+	//Fields for Customer Entity
+	
 	private int customerID;
 	
 	@FormParam("customerName")
