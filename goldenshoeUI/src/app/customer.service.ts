@@ -35,4 +35,34 @@ export class CustomerService {
       (err) => console.log(err)
     );
    }
+
+   async getCustomerLogin(user: string, password: string){
+    const httpOpts = {
+      headers: new HttpHeaders({"Content-Type":"application/x-www-form-urlencoded"})
+    }
+    const params = new URLSearchParams();
+    params.set('customerUser', user)
+    params.set('customerPass', password)
+
+    const result = await this.httpsvc.post<Customer>(this.rootURL+"/customer/login", params.toString(), httpOpts).toPromise();
+    if(result){
+      this.currentUser = result;
+      localStorage.setItem('currentUser', JSON.stringify(result));
+      this.isLoggedIn= true;
+      }
+      return result;
+   }
+
+   customerLogout(){
+    localStorage.removeItem("currentUser");
+    this.isLoggedIn = false;
+  }
+
+  checkIsLoggedIn(){
+    if(localStorage.getItem("currentUser")){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

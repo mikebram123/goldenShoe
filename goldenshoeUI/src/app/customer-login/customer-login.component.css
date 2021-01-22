@@ -1,0 +1,13 @@
+#customerLoginForm{
+    width: 50%;
+    margin: auto;
+    color: black;
+}
+
+h2{
+    text-align: center;
+}
+
+.card{
+    border-radius: 25px;
+}

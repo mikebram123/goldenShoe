@@ -1,4 +1,16 @@
-<p>customer-login works!</p>
+<br>
+<form class="card p-3 bg-light" id="customerLoginForm" [formGroup]="customerLoginForm" (ngSubmit)="customerLogin(puser.value, ppass.value)">
+    <h2>Login</h2>
+    <div class="form-group">
+        <label for="customerUserInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">User Name</label>
+        <input type="email" class="form-control col-sm-10 offset-sm-1" id="customerUserInput" placeholder="Enter User Name" formControlName="customerUser" #puser>
+    </div>
+    <div class="form-group">
+        <label for="customerPasswordInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">Password</label>
+        <input type="password" class="form-control col-sm-10 offset-sm-1" id="customerPasswordInput" placeholder="Enter password" formControlName="customerPass" #ppass>
+    </div>
+    <button type="submit" class="btn btn-dark col-sm-4 offset-sm-4">Submit</button>
+</form>
 
 
 

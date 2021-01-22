@@ -11,6 +11,7 @@ import { CustomerRegisterComponent } from './customer-register/customer-register
 import { BasketComponent } from './basket/basket.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
+import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProductComponent } from './product/product.component';
     CustomerRegisterComponent,
     BasketComponent,
     HomeComponent,
-    ProductComponent
+    ProductComponent,
+    CustomerProfileComponent
   ],
   imports: [
     BrowserModule,
