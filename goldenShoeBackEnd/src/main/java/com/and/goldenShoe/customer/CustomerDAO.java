@@ -12,6 +12,9 @@ public interface CustomerDAO extends CrudRepository<CustomerEntity, Integer>{
 	
 	@Query("SELECT c FROM CustomerEntity c WHERE LOWER(c.customerUser) = LOWER(:customerUser) AND c.customerPass = :customerPass")
 	public CustomerEntity findCustomerLogin(@Param("customerUser") String customerUser, @Param("customerPass") String customerPass);
+	
+	@Query("SELECT c FROM CustomerEntity c WHERE LOWER(c.customerUser) = LOWER(:customerUser)")
+    public CustomerEntity checkUsername(@Param("customerUser") String user);
 
 
 }

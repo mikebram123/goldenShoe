@@ -22,6 +22,7 @@ export class CustomerRegisterComponent implements OnInit {
      this.custService.addNewCustomer(newCustomer);
      this.router.navigate(['/login']);
    }
+   
 
   ngOnInit(): void {
     this.customerRegisterForm = this.formBuilder.group({

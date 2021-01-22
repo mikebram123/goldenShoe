@@ -1,5 +1,7 @@
 package com.and.goldenShoe.customer;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +17,13 @@ public class CustomerService implements CustomerAPI {
 	@Autowired
 	BasketDAO basDAO;
 
-	public CustomerEntity addCustomer(CustomerEntity newCustomer) {
+	public CustomerEntity addCustomer(CustomerEntity newCustomer) throws NoSuchElementException {
 		BasketEntity basket = new BasketEntity();
 		System.out.println(basket);
+		//Checks if user name is already present in database if true throws error
+		if (cusDAO.checkUsername(newCustomer.getCustomerUser())!=null) {
+			throw new NoSuchElementException("User name is in use");
+		}
 		basDAO.save(basket);
 		cusDAO.save(newCustomer);
 		joinBasketAndCustomer(basket.getBasketID(), newCustomer.getCustomerID());

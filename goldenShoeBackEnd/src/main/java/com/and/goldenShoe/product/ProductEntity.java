@@ -23,6 +23,9 @@ public class ProductEntity {
 	
 	private int productID;
 	
+	@FormParam("productBrands")
+	private ProductBrands productBrands;
+	
 	@FormParam("productName")
 	private String productName;
 	
@@ -81,6 +84,18 @@ public class ProductEntity {
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
+
+	public ProductBrands getProductBrands() {
+		return productBrands;
+	}
+
+	public void setProductBrands(ProductBrands productBrands) {
+		this.productBrands = productBrands;
+	}
+
+	
+	
+	
 
 
 

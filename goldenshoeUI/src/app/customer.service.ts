@@ -12,9 +12,13 @@ export class CustomerService {
   rootURL: string;
   isLoggedIn: boolean;
   currentUser: Customer;
+  isUserInUse: Boolean;
+  serverMessage: String;
 
   constructor(private httpsvc:HttpClient) {
     this.currentUser= JSON.parse(localStorage.getItem("currentUser"));
+    this.isUserInUse = true;
+    this.serverMessage = "Username is taken please chose another one"
 
     this.rootURL= "http://localhost:8080/goldenshoe"
    }

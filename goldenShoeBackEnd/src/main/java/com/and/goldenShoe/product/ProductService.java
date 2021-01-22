@@ -1,12 +1,19 @@
 package com.and.goldenShoe.product;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.and.goldenShoe.productSize.SizeDAO;
 import com.and.goldenShoe.productSize.SizeEntity;
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentDAO;
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
+@Component
 public class ProductService implements ProductAPI {
 	
 	@Autowired
@@ -63,6 +70,34 @@ public class ProductService implements ProductAPI {
 		
 		return newProduct;
 	}
+
+	@Override
+	public Set<ProductEntity> listAllProducts() {
+		Iterable<ProductEntity> prods = proDAO.findAll();
+		return availableShoes(prods);
+	}
+
+	@Override
+	public Set<ProductEntity> findByBrand(ProductBrands brand) {
+		Iterable<ProductEntity> prods = proDAO.findShoesByBrand(brand);
+		return availableShoes(prods);
+	}
+	
+	public Set<ProductEntity> availableShoes(Iterable<ProductEntity> products){
+		Stream<ProductEntity> prods = StreamSupport.stream(products.spliterator(), true);
+		return prods.filter(prod-> (isProductAvailable(prod)==true)).collect(Collectors.toSet());	
+		
+	}
+
+	private boolean isProductAvailable(ProductEntity prod) {
+		Set<ProductSizeAssignmentEntity> sizeSet = prod.getAssignedProducts();
+		Stream<ProductSizeAssignmentEntity> sizeStream = sizeSet.stream();
+		return sizeStream.anyMatch(size -> size.getQuantity()>0);
+	}
+	
+   
+
+	
 
 	
 
