@@ -49,6 +49,7 @@ export class CustomerService {
       this.currentUser = result;
       localStorage.setItem('currentUser', JSON.stringify(result));
       this.isLoggedIn= true;
+      console.log("fjfne")
       }
       return result;
    }

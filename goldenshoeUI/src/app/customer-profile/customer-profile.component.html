@@ -1,1 +1,22 @@
-<p>customer-profile works!</p>
+<br>
+<table [ngClass]="'light'" class="table col-sm-2 offset-sm-5" *ngIf="custService.isLoggedIn">
+    <thead>
+        <tr>
+            <h3>Your Details:</h3>
+        </tr>  
+        <tr>
+            <th>Email Address</th>
+            <td>{{custService.currentUser.customerEmail}}</td>
+        </tr>
+        <tr>
+            <th>User Name</th>
+            <td>{{custService.currentUser.customerUser}}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{custService.currentUser.customerName}}</td>
+        </tr>
+    </thead>
+</table>
+
+<h2 *ngIf="!custService.isLoggedIn">Please Sign In!</h2>

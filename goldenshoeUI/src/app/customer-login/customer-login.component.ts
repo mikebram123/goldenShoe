@@ -27,7 +27,11 @@ export class CustomerLoginComponent implements OnInit {
     });
   }
 
-  customerLogin(user:string, password:string){
+  onSubmit(){
+
+  }
+
+  customerLogin(user: string, password: string){
     this.custService.getCustomerLogin(user, password).then(()=>{
       this.router.navigate(['/profile']);
     });

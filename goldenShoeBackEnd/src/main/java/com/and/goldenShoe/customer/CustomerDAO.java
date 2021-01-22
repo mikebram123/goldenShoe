@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface CustomerDAO extends CrudRepository<CustomerEntity, Integer>{
 	
 	@Query("SELECT c FROM CustomerEntity c WHERE LOWER(c.customerUser) = LOWER(:customerUser) AND c.customerPass = :customerPass")
-	public CustomerEntity findCustomerLogin(@Param("customerUser") String email, @Param("customerPass") String pass);
+	public CustomerEntity findCustomerLogin(@Param("customerUser") String customerUser, @Param("customerPass") String customerPass);
 
 
 }

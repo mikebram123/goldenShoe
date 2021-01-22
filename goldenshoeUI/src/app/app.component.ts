@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CustomerService } from './customer.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'goldenshoeUI';
+
+  constructor(public custService:CustomerService){
+    this.custService.isLoggedIn = custService.checkIsLoggedIn();
+  }
 }
+

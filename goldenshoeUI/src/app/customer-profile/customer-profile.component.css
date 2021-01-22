@@ -1,0 +1,18 @@
+h2{
+    text-align: center;
+ }
+ 
+ caption{
+     text-align: center;
+     font-weight: bold;
+     caption-side: top;
+     font-size: larger;
+ }
+ 
+ .orderRow{
+     cursor: pointer;
+ }
+ 
+ .orderRow:hover{
+     background-color: #bddbf0;
+ }
