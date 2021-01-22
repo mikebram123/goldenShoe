@@ -1,7 +1,78 @@
+<br>
 
-<body>
-    
-</body>
-<p>customer-register works!</p>
-<p>hiya2.0</p>
+
+<form class="card p-3 bg-light" id="customerRegisterForm" [formGroup]="customerRegisterForm"
+ (ngSubmit)="onSubmit({
+     customerName:pname.value,
+     customerEmail: pemail.value,
+     customerUser: puser.value,
+     customerPass:ppass.value
+ })">
+
+
+
+<h2>
+    Register
+</h2>
+
+<!-- customer name field -->
+<div class="form-group">
+    <label for="customerNameInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">
+        Full Name
+    </label>
+    <input type="text" class="form-control col-sm-10 offset-sm-1" id="customerNameInput" placeholder="Enter Full Name" formControlName="customerName"
+    [ngClass]="{'is-invalid': customerRegisterForm.get('customerName').touched && customerRegisterForm.get('customerName').invalid}" #pname>
+    <div class="invalid-feedback form-control col-sm-10 offset-sm-1">
+        <div>Name is Required</div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="customerEmailInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">
+        Email address
+    </label>
+    <input type="email" class="form-control col-sm-10 offset-sm-1" id="customerEmailInput" placeholder="Enter email" formControlName="customerEmail"
+    [ngClass]="{ 'is-invalid': submitted && f.customerEmail.errors}" #pemail>
+    <div *ngIf="submitted && f.customerEmail.errors" class="invalid-feedback form-control col-sm-10 offset-sm-1">
+        <div *ngIf="f.customerEmail.errors.required">Email is Required</div>
+        <div *ngIf="f.customerEmail.errors.email">Email must be a valid email address</div>
+    </div> 
+</div>
+
+<div class="form-group">
+    <label for="customerSecondaryInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">
+        Confirm Email address
+    </label>
+    <input type="email" class="form-control col-sm-10 offset-sm-1" id="customerEmailSecondaryInput" placeholder="Confirm email" formControlName="confirm"
+    [ngClass]="{ 'is-invalid': submitted && (isEmailMismatch || f.confirm.errors) }" #pconfirm>
+    <div *ngIf="submitted && (isEmailMismatch || f.confirm.errors)" class="invalid-feedback form-control col-sm-10 offset-sm-1">
+        <div *ngIf="f.confirm.errors.required">Confirm email is Required</div>
+        <div *ngIf="isEmailMismatch">Emails must match</div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="customerUserInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label" >
+        User Name
+    </label>
+    <input type="text" class="form-control col-sm-10 offset-sm-1" id="customerUserInput" placeholder="Enter User" formControlName="customerUser" 
+    [ngClass]="{'is-invalid': customerRegisterForm.get('customerUser').touched && customerRegisterForm.get('customerUser').invalid}" #puser>
+    <div class="invalid-feedback form-control col-sm-10 offset-sm-1">
+        <div>User is Required</div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="customerPasswordInput" class="text-nowrap col-sm-2 offset-sm-1 col-form-label">
+        Password
+    </label>
+    <input type="password" class="form-control col-sm-10 offset-sm-1" id="customerPasswordInput" placeholder="Enter password" formControlName="customerPass"
+    [ngClass]="{'is-invalid': customerRegisterForm.get('customerPass').touched && customerRegisterForm.get('customerPass').invalid}" #ppass>
+    <div class="invalid-feedback form-control col-sm-10 offset-sm-1">
+        <div>Password is Required</div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-dark col-sm-4 offset-sm-4">Submit</button>
+
 
