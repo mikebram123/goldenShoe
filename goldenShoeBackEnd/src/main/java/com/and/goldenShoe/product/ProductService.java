@@ -115,6 +115,21 @@ public class ProductService implements ProductAPI {
 		return selectedProd;  
 	}
 
+	@Override
+	public Set<ProductEntity> findBySize(int size) {
+		Iterable<ProductEntity> prods = proDAO.findAll();
+		Stream<ProductEntity> prodStream = StreamSupport.stream(prods.spliterator(), true);
+		return prodStream.filter(prod->(doesSizeExist(prod, size)==true)).collect(Collectors.toSet());
+	}
+
+	private boolean doesSizeExist(ProductEntity prod, int size) {
+		Set<ProductSizeAssignmentEntity> prods = prod.getAssignedProducts();
+		Stream<ProductSizeAssignmentEntity> productSizes = prods.stream();
+		return productSizes.anyMatch(shoeSize->shoeSize.getQuantity()>0 && shoeSize.getLinkedSize().getSize()==size);
+	}
+	
+	
+
 }
 
 

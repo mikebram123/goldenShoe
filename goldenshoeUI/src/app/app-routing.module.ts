@@ -5,6 +5,7 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
 import { CustomerRegisterComponent } from './customer-register/customer-register.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { ProductComponent } from './product/product.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path:'profile', 
     component: CustomerProfileComponent
+  },
+  {
+    path: 'product',
+    component: ProductComponent
   }
   
 

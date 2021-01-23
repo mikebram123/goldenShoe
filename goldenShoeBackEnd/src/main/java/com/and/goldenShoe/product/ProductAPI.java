@@ -35,4 +35,11 @@ public interface ProductAPI {
     @Produces({MediaType.APPLICATION_JSON})
     public ProductEntity UpdateSizes(@FormParam("productID") int productID, @FormParam("size") double size, @FormParam("quantity") int quantity);
     
+    @POST
+    @Path("/findBySize")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Set<ProductEntity> findBySize(@FormParam("size") int size);
+    
+    
+    
 }

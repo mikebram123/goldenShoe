@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Customer } from './customer';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Product } from './product';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
+
 
   rootURL: string;
   isLoggedIn: boolean;
@@ -69,5 +71,22 @@ export class CustomerService {
     }else{
       return false;
     }
+  }
+
+  fetchAllProducts(): Observable<Product[]> {
+    return this.httpsvc.get<Product[]>(this.rootURL+'/product/listAll')
+    
+  }
+
+  fetchBySize(size: number): Observable<Product[]>{
+    var contentData = 
+            "size=" + size
+    const httpOptions= {
+      headers: new HttpHeaders(
+        {"Content-Type":"application/x-www-form-urlencoded"}
+      )
+      
+    }
+    return this.httpsvc.post<Product[]>("http://localhost:8080/goldenshoe/product/findBySize", contentData, httpOptions)
   }
 }
