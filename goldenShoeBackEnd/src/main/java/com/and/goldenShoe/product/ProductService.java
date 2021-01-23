@@ -15,42 +15,42 @@ import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
 @Component
 public class ProductService implements ProductAPI {
-	
+
 	@Autowired
 	ProductDAO proDAO;
-	
+
 	@Autowired
 	ProductSizeAssignmentDAO assDAO;
-	
+
 	@Autowired
 	SizeDAO sizeDAO;
-	
 
-	
+
+
 	public ProductEntity joinProductAssigned(int productID, int assignedID) {
 		ProductEntity product = proDAO.findById(productID).get();
 		ProductSizeAssignmentEntity assigned = assDAO.findById(assignedID).get();
-		
+
 		assigned.setLinkedProduct(product);
 		product.getAssignedProducts().add(assigned);
-		
+
 		assDAO.save(assigned);
 		proDAO.save(product);
-		
+
 		return product;
-		
+
 	}
-	
+
 	public SizeEntity joinSizeAssigned(int sizeID, int assignedID) {
 		SizeEntity size = sizeDAO.findById(sizeID).get();
 		ProductSizeAssignmentEntity assigned = assDAO.findById(assignedID).get();
-		
+
 		assigned.setLinkedSize(size);
 		size.getAssignedSize().add(assigned);
-		
+
 		assDAO.save(assigned);
 		sizeDAO.save(size);
-		
+
 		return size;	
 	}
 
@@ -59,15 +59,15 @@ public class ProductService implements ProductAPI {
 		System.out.println(sizeE);
 		ProductSizeAssignmentEntity prodS = new ProductSizeAssignmentEntity();
 		System.out.println(prodS);
-		
+
 		prodS.setQuantity(quantity);
 		proDAO.save(newProduct);
 		assDAO.save(prodS);
-		
+
 		joinProductAssigned(newProduct.getProductID(), prodS.getProduct_size_assignmentID());
 		joinSizeAssigned(sizeE.getSizeID(), prodS.getProduct_size_assignmentID());
-		
-		
+
+
 		return newProduct;
 	}
 
@@ -82,11 +82,11 @@ public class ProductService implements ProductAPI {
 		Iterable<ProductEntity> prods = proDAO.findShoesByBrand(brand);
 		return availableShoes(prods);
 	}
-	
+
 	public Set<ProductEntity> availableShoes(Iterable<ProductEntity> products){
 		Stream<ProductEntity> prods = StreamSupport.stream(products.spliterator(), true);
 		return prods.filter(prod-> (isProductAvailable(prod)==true)).collect(Collectors.toSet());	
-		
+
 	}
 
 	private boolean isProductAvailable(ProductEntity prod) {
@@ -94,11 +94,33 @@ public class ProductService implements ProductAPI {
 		Stream<ProductSizeAssignmentEntity> sizeStream = sizeSet.stream();
 		return sizeStream.anyMatch(size -> size.getQuantity()>0);
 	}
-	
-   
 
-	
+	@Override
+	public ProductEntity UpdateSizes(int productID, double size, int quantity) {
+		ProductEntity selectedProd = proDAO.findById(productID).get();
+		Iterable<ProductSizeAssignmentEntity> prodSizes = selectedProd.getAssignedProducts();
+		boolean isUpdated = true;
+		for (ProductSizeAssignmentEntity ps : prodSizes) {
+			if (ps.getLinkedSize().getSize() == size) {
+				ps.setQuantity(ps.getQuantity()+quantity);
+				assDAO.save(ps);
+				isUpdated = false;
+				break;
+			}
 
-	
+		}
+		if(isUpdated) {
+			addProduct(selectedProd, size, quantity);
+		}
+		return selectedProd;  
+	}
 
 }
+
+
+
+
+
+
+
+
