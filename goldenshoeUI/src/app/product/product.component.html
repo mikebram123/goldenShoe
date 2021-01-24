@@ -30,12 +30,12 @@
                 <th>Product Price</th>
             </tr>
         </thead>
-        <tr *ngFor="let p of products; let i = index">
+        <tr *ngFor="let p of products | sort:'productName'; let i = index">
             <td>{{p.productName}}</td>
             <td>{{p.productBrands}}</td>
             <td>{{p.productPrice}}</td>
             <td>
-                <!-- <button (click)="moveToCart(1, p.productID)"></button> -->
+                <button (click)="addToCart(p.productID, size1)">Buy Now</button>
             </td>
         </tr>
     </table>

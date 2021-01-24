@@ -55,7 +55,6 @@ export class CustomerService {
       this.currentUser = result;
       localStorage.setItem('currentUser', JSON.stringify(result));
       this.isLoggedIn= true;
-      console.log("fjfne")
       }
       return result;
    }
@@ -88,5 +87,18 @@ export class CustomerService {
       
     }
     return this.httpsvc.post<Product[]>("http://localhost:8080/goldenshoe/product/findBySize", contentData, httpOptions)
+  }
+
+  moveToCart(quantity: number, productID:number, size:number, customerID: number): Observable<Product>{
+    var contentData=
+        "quantity=" + quantity+ "&productID=" + productID + "&size=" + size + "&customerID=" + customerID
+    const httpOptions= {
+      headers: new HttpHeaders(
+          {"Content-Type":"application/x-www-form-urlencoded"}
+          )
+        }
+    return this.httpsvc.post<Product>("http://localhost:8080/goldenshoe/basket/addToCart", contentData, httpOptions)
+
+
   }
 }

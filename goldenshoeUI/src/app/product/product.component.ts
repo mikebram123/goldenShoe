@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../customer.service';
 import { Product } from '../product';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'app-product',
@@ -12,8 +13,11 @@ export class ProductComponent implements OnInit {
 
   products: Product[]
   size1: number
+  currentUser: Customer
+  product: Product
 
   constructor(public custService: CustomerService, router:Router) {
+    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     this.products=[{
       productID:0, productBrands: "", productName:"", productPrice:0
     }]
@@ -30,6 +34,15 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  addToCart(productID:number, size:number){
+    this.custService.moveToCart(1, productID, size, this.currentUser.customerID).subscribe(
+      response=>{
+        this.product=response
+        this.fetchProduct(size)
+      }
+    )
   }
 
 }

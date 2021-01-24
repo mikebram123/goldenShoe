@@ -12,6 +12,7 @@ import { BasketComponent } from './basket/basket.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
+import { ArraySortPipePipe } from './array-sort-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
     BasketComponent,
     HomeComponent,
     ProductComponent,
-    CustomerProfileComponent
+    CustomerProfileComponent,
+    ArraySortPipePipe
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.and.goldenShoe.productBasketAssignment.ProductBasketAssignmentEntity;
+import com.and.goldenShoe.product.ProductEntity;
 
 @Path("/basket")
 public interface BasketAPI {
@@ -16,7 +16,7 @@ public interface BasketAPI {
 	@Path("/addToCart")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_JSON})
-	public ProductBasketAssignmentEntity addToCart(@FormParam("quantity") int quantity, @FormParam("productID") int productID,
+	public ProductEntity addToCart(@FormParam("quantity") int quantity, @FormParam("productID") int productID,
 			@FormParam("customerID")int customerID, @FormParam("size") double size);
 	
 }

@@ -39,7 +39,7 @@ public class BasketService implements BasketAPI{
 	CustomerService cusServ;
 	
 	@Transactional
-	public ProductBasketAssignmentEntity addToCart(int quantity, int productID, int customerID, double size) throws IllegalArgumentException {
+	public ProductEntity addToCart(int quantity, int productID, int customerID, double size) throws IllegalArgumentException {
 		ProductEntity product = proDAO.findById(productID).get();
 		ProductBasketAssignmentEntity probas = new ProductBasketAssignmentEntity();
 		Set<ProductSizeAssignmentEntity> asProds = product.getAssignedProducts();
@@ -64,7 +64,7 @@ public class BasketService implements BasketAPI{
 			break;
 		}
 		
-		return probas;
+		return product;
 	}
 	
 	@Transactional
