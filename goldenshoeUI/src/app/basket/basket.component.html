@@ -1,1 +1,24 @@
-<p>basket works!</p>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Brand</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+                <th>Product Size</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let p of productBasketArray">
+            <td>{{p.linkedSizes.linkedProduct.productName}}</td>
+            <td>{{p.linkedSizes.linkedProduct.productBrands}}</td>
+            <td>{{p.linkedSizes.linkedProduct.productPrice}}</td>
+            <td>{{p.quantityOrdered}}</td>
+            <td>{{p.linkedSizes.linkedSize.size}}</td>
+           
+        </tr>
+        <td> 
+            <button (click)="checkout()">Checkout</button>
+        </td>
+    </table>
+</div>

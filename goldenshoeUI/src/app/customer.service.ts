@@ -3,6 +3,8 @@ import { Customer } from './customer';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Product } from './product';
+import { Basket } from './basket';
+import { ProductBasketAssignment } from './product-basket-assignment';
 
 
 @Injectable({
@@ -98,7 +100,39 @@ export class CustomerService {
           )
         }
     return this.httpsvc.post<Product>("http://localhost:8080/goldenshoe/basket/addToCart", contentData, httpOptions)
-
-
   }
+
+  fetchCurrentBasket(customerID:number):Observable<Basket>{
+    var contentData=
+      "customerID="+customerID
+      const httpOptions= {
+        headers: new HttpHeaders(
+            {"Content-Type":"application/x-www-form-urlencoded"}
+            )
+          }
+    return this.httpsvc.post<Basket>("http://localhost:8080/goldenshoe/basket/fetchCurrentBasket", contentData, httpOptions)
+  }
+
+  fetchAssignedProducts(basketID:number):Observable<ProductBasketAssignment[]>{
+    var contentData=
+      "basketID="+basketID
+      const httpOptions={
+        headers: new HttpHeaders(
+          {"Content-Type":"application/x-www-form-urlencoded"}
+          )
+      }
+    return this.httpsvc.post<ProductBasketAssignment[]>("http://localhost:8080/goldenshoe/basket/fetchBasketProducts", contentData, httpOptions)
+  }
+
+  checkout(basketID:number):Observable<Basket>{
+    var contentData=
+      "basketID="+basketID
+      const httpOptions={
+        headers: new HttpHeaders(
+          {"Content-Type":"application/x-www-form-urlencoded"}
+          )
+      }
+    return this.httpsvc.post<Basket>("http://localhost:8080/goldenshoe/basket/checkout", contentData, httpOptions)
+  }
+
 }

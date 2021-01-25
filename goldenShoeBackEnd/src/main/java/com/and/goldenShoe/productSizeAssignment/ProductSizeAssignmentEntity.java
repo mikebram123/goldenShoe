@@ -1,16 +1,22 @@
 package com.and.goldenShoe.productSizeAssignment;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.and.goldenShoe.product.ProductEntity;
+import com.and.goldenShoe.productBasketAssignment.ProductBasketAssignmentEntity;
 import com.and.goldenShoe.productSize.SizeEntity;
 
 @Entity
@@ -27,11 +33,24 @@ public class ProductSizeAssignmentEntity {
 	@FormParam("quantity")
 	private int quantity;
 	
+	private Set<ProductBasketAssignmentEntity> linkedBaskets;
 	
+	
+	
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="linkedSizes", cascade = CascadeType.ALL)
+	@XmlTransient
+	public Set<ProductBasketAssignmentEntity> getLinkedBaskets() {
+		return linkedBaskets;
+	}
+
+	public void setLinkedBaskets(Set<ProductBasketAssignmentEntity> linkedBaskets) {
+		this.linkedBaskets = linkedBaskets;
+	}
 
 	@ManyToOne
 	@JoinColumn(name= "fk_productID")
-	@XmlTransient
+//	@XmlTransient
 	public ProductEntity getLinkedProduct() {
 		return linkedProduct;
 	}
@@ -42,7 +61,7 @@ public class ProductSizeAssignmentEntity {
 
 	@ManyToOne
 	@JoinColumn(name= "fk_sizeID")
-	@XmlTransient
+//	@XmlTransient
 	public SizeEntity getLinkedSize() {
 		return linkedSize;
 	}

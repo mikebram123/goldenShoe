@@ -19,25 +19,25 @@ import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
 @Component
 public class BasketService implements BasketAPI{
-	
+
 	@Autowired
 	BasketDAO basDAO;
-	
+
 	@Autowired
 	ProductDAO proDAO;
-	
+
 	@Autowired
 	ProductBasketAssignmentDAO probasDAO;
-	
+
 	@Autowired
 	ProductSizeAssignmentDAO proSizeDAO;
-	
+
 	@Autowired
 	CustomerDAO cusDAO;
-	
+
 	@Autowired
 	CustomerService cusServ;
-	
+
 	@Transactional
 	public ProductEntity addToCart(int quantity, int productID, int customerID, double size) throws IllegalArgumentException {
 		ProductEntity product = proDAO.findById(productID).get();
@@ -55,18 +55,19 @@ public class BasketService implements BasketAPI{
 			probasDAO.save(probas);
 			prodSize.setQuantity(prodSize.getQuantity()-quantity);
 			proSizeDAO.save(prodSize);
-			joinProductToAssignedProduct(productID, probas.getProduct_basket_assignmentID());
+			//			joinProductToAssignedProduct(productID, probas.getProduct_basket_assignmentID());
 			BasketEntity basket = findBasketByCustomerID(customerID);
 			basket.setTotalValue(basket.getTotalValue()+(product.getProductPrice()*quantity));
 			basDAO.save(basket);
 			joinBasketToAssignedProduct(basket.getBasketID(), probas.getProduct_basket_assignmentID());
-			
+			joinBasketToProductSize(probas.getProduct_basket_assignmentID(), prodSize.getProduct_size_assignmentID());
+
 			break;
 		}
-		
+
 		return product;
 	}
-	
+
 	@Transactional
 	public BasketEntity findBasketByCustomerID(int customerID) {
 		CustomerEntity cust = cusDAO.findById(customerID).get();
@@ -82,39 +83,56 @@ public class BasketService implements BasketAPI{
 			currentBasket = new BasketEntity();
 			basDAO.save(currentBasket);
 			cusServ.joinBasketAndCustomer(currentBasket.getBasketID(), customerID);
-			
+
 		}
-		
+
 		return currentBasket;
 	}
-	
-	
+
+
 	@Transactional
 	public BasketEntity joinBasketToAssignedProduct(int basketID, int AssignedID) {
 		BasketEntity basket = basDAO.findById(basketID).get();
 		ProductBasketAssignmentEntity proBas = probasDAO.findById(AssignedID).get();
-		
+
 		basket.getBasketProducts().add(proBas);
 		proBas.setLinkedBasket(basket);
-		
+
 		basDAO.save(basket);
 		probasDAO.save(proBas);
-		
+
 		return basket;
 	}
-	
+
+
+	@Transactional 
+	public ProductSizeAssignmentEntity joinBasketToProductSize (int productBasketAssignmentID, int productSizeAssignmentID) {
+		ProductBasketAssignmentEntity proB = probasDAO.findById(productBasketAssignmentID).get();
+		ProductSizeAssignmentEntity proS = proSizeDAO.findById(productSizeAssignmentID).get();
+
+		proB.setLinkedSizes(proS);
+		proS.getLinkedBaskets().add(proB);
+
+		probasDAO.save(proB);
+		proSizeDAO.save(proS);
+
+		return proS;
+	}
+
+	@Override
+	public Set<ProductBasketAssignmentEntity> fetchBasketProducts(int basketID) {
+		BasketEntity basket = basDAO.findById(basketID).get();		
+		return basket.getBasketProducts();
+	}
+
+	@Override
 	@Transactional
-	public ProductEntity joinProductToAssignedProduct (int productID, int assignedID) {
-		ProductEntity product = proDAO.findById(productID).get();
-		ProductBasketAssignmentEntity proBas = probasDAO.findById(assignedID).get();
-		
-		product.getAssignedBasketProducts().add(proBas);
-		proBas.setLinkedProducts(product);
-		
-		proDAO.save(product);
-		probasDAO.save(proBas);
-		
-		return product;
+	public BasketEntity checkout(int basketID) {
+		BasketEntity basket = basDAO.findById(basketID).get();
+		basket.setCurrentBasket(false);
+		basDAO.save(basket);
+		System.out.println("Test");
+		return basket;
 	}
 
 }

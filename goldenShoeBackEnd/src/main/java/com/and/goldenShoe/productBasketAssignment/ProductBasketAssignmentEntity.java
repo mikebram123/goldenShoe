@@ -11,7 +11,7 @@ import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.and.goldenShoe.basket.BasketEntity;
-import com.and.goldenShoe.product.ProductEntity;
+import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
 @Entity
 @Table(name="product_basket_assignment")
@@ -22,9 +22,22 @@ public class ProductBasketAssignmentEntity {
 	@FormParam("quantityOrdered")
 	private int quantityOrdered;
 	
-	private ProductEntity linkedProducts;
-	
 	private BasketEntity linkedBasket;
+	
+	private ProductSizeAssignmentEntity linkedSizes;
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name="fk_productSizeAssignmentID")
+//	@XmlTransient
+	public ProductSizeAssignmentEntity getLinkedSizes() {
+		return linkedSizes;
+	}
+
+	public void setLinkedSizes(ProductSizeAssignmentEntity linkedSizes) {
+		this.linkedSizes = linkedSizes;
+	}
 
 	@ManyToOne
 	@JoinColumn(name="fk_BasketID")
@@ -37,16 +50,6 @@ public class ProductBasketAssignmentEntity {
 		this.linkedBasket = linkedBasket;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="fk_productID")
-	@XmlTransient
-	public ProductEntity getLinkedProducts() {
-		return linkedProducts;
-	}
-
-	public void setLinkedProducts(ProductEntity linkedProducts) {
-		this.linkedProducts = linkedProducts;
-	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

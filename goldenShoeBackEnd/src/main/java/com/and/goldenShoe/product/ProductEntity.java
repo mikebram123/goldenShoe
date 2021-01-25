@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.and.goldenShoe.productBasketAssignment.ProductBasketAssignmentEntity;
+
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
 @Entity
@@ -34,20 +34,6 @@ public class ProductEntity {
 	
 	Set<ProductSizeAssignmentEntity> assignedProducts = new HashSet<ProductSizeAssignmentEntity>();
 	
-	Set<ProductBasketAssignmentEntity> assignedBasketProducts = new HashSet<ProductBasketAssignmentEntity>();
-	
-	
-	
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="linkedProducts", cascade = CascadeType.ALL)
-	@XmlTransient
-	public Set<ProductBasketAssignmentEntity> getAssignedBasketProducts() {
-		return assignedBasketProducts;
-	}
-
-	public void setAssignedBasketProducts(Set<ProductBasketAssignmentEntity> assignedBasketProducts) {
-		this.assignedBasketProducts = assignedBasketProducts;
-	}
 
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="linkedProduct", cascade=CascadeType.ALL)
 	@XmlTransient
