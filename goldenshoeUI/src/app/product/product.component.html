@@ -22,7 +22,7 @@
 
 
 <div>
-    <table>
+    <table [hidden]="isShown">
         <thead>
             <tr>
                 <th>Product Name</th>
@@ -34,8 +34,9 @@
             <td>{{p.productName}}</td>
             <td>{{p.productBrands}}</td>
             <td>{{p.productPrice}}</td>
+            <td><img width="100" height="100" src="assets/images/{{p.productID}}.jpg" data-color="firebrick" alt=" Trainers"></td>
             <td>
-                <button (click)="addToCart(p.productID, size1)">Buy Now</button>
+                <button (click)="fetchProductInfo(p.productID)">More information</button>
             </td>
         </tr>
     </table>

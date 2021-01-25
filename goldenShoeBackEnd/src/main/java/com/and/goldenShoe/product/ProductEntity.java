@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +33,16 @@ public class ProductEntity {
 	
 	@FormParam("productPrice")
 	private double productPrice;
+	
+	@FormParam("productColour")
+	private ProductColour productColour;
+	
+	@FormParam("productFit")
+	private ProductFit productFit;
+	
+	@FormParam("productStyle")
+	private ProductStyle productStyle;
+	
 	
 	Set<ProductSizeAssignmentEntity> assignedProducts = new HashSet<ProductSizeAssignmentEntity>();
 	
@@ -79,6 +91,34 @@ public class ProductEntity {
 		this.productBrands = productBrands;
 	}
 
+	@Enumerated(EnumType.STRING)
+	public ProductColour getProductColour() {
+		return productColour;
+	}
+
+	public void setProductColour(ProductColour productColour) {
+		this.productColour = productColour;
+	}
+
+	@Enumerated(EnumType.STRING)
+	public ProductFit getProductFit() {
+		return productFit;
+	}
+
+	public void setProductFit(ProductFit productFit) {
+		this.productFit = productFit;
+	}
+
+	@Enumerated(EnumType.STRING)
+	public ProductStyle getProductStyle() {
+		return productStyle;
+	}
+
+	public void setProductStyle(ProductStyle productStyle) {
+		this.productStyle = productStyle;
+	}
+
+	
 	
 	
 	

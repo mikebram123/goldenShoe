@@ -1,5 +1,6 @@
 package com.and.goldenShoe.product;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.ws.rs.BeanParam;
@@ -39,6 +40,18 @@ public interface ProductAPI {
     @Path("/findBySize")
     @Produces({MediaType.APPLICATION_JSON})
     public Set<ProductEntity> findBySize(@FormParam("size") int size);
+    
+    @POST
+    @Path("/findProd")
+    @Produces({MediaType.APPLICATION_JSON})
+    public ProductEntity addProduct(@FormParam("productID") int productID);
+    
+    @POST
+    @Path("/findSizes")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Set<Double> getSizes(@FormParam("productID") int productID);
+    
+    
     
     
     

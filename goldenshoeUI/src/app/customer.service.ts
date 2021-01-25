@@ -135,4 +135,35 @@ export class CustomerService {
     return this.httpsvc.post<Basket>("http://localhost:8080/goldenshoe/basket/checkout", contentData, httpOptions)
   }
 
+
+findProduct(productID:number):Observable<Product>{
+  var contentData=
+  "productID="+productID
+  const httpOptions={
+    headers: new HttpHeaders(
+      {"Content-Type":"application/x-www-form-urlencoded"}
+      )
+  }
+return this.httpsvc.post<Product>("http://localhost:8080/goldenshoe/product/findProd", contentData, httpOptions)
+
+
+}
+
+getSizes(productID:number):Observable<Number[]>{
+  var contentData=
+  "productID="+productID
+  const httpOptions={
+    headers: new HttpHeaders(
+      {"Content-Type":"application/x-www-form-urlencoded"}
+      )
+  }
+return this.httpsvc.post<Number[]>("http://localhost:8080/goldenshoe/product/findSizes", contentData, httpOptions) 
+}
+
+
+
+
+
+
+
 }

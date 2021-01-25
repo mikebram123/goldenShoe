@@ -1,0 +1,26 @@
+<p>specific-product works!</p>
+
+
+<table>
+    <tr>
+        <th>
+            {{product.productName}}
+        </th>
+    </tr>
+    <tr>
+        <td>
+            {{product.productPrice}}
+        </td>
+    </tr>
+    <tr *ngFor="let s of sizes let i of index">
+        <td>
+            {{s}}
+        </td>
+        <td>
+            <button (click)="addToCart(s)">Add to Basket</button>
+        </td>
+    </tr>
+</table>
+<div>
+<img class="d-block w-100" src="assets/images/{{product.productID}}.jpg" data-color="firebrick" alt=" Trainers">
+</div>

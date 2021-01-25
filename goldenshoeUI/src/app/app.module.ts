@@ -14,6 +14,7 @@ import { ProductComponent } from './product/product.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
 import { ArraySortPipePipe } from './array-sort-pipe.pipe';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { SpecificProductComponent } from './specific-product/specific-product.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ProductComponent,
     CustomerProfileComponent,
     ArraySortPipePipe,
-    CheckoutComponent
+    CheckoutComponent,
+    SpecificProductComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CustomerService } from '../customer.service';
 import { Product } from '../product';
 import { Customer } from '../customer';
+import { SpecificProductComponent } from '../specific-product/specific-product.component';
 
 @Component({
   selector: 'app-product',
@@ -15,20 +16,28 @@ export class ProductComponent implements OnInit {
   size1: number
   currentUser: Customer
   product: Product
+  specificProduct: SpecificProductComponent
+  isShown: boolean
 
-  constructor(public custService: CustomerService, router:Router) {
+  constructor(public custService: CustomerService, private router:Router) {
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     this.products=[{
-      productID:0, productBrands: "", productName:"", productPrice:0
+      productID:0, productBrands: "", productName:"", productPrice:0, productColour:"", productFit:"",productStyle:""
     }]
     this.size1=0
+    this.product={
+      productID:0, productBrands: "", productName:"", productPrice:0, productColour:"", productFit:"",productStyle:""
+    }
+    this.isShown = true
 
    }
 
    fetchProduct(size:number){
      this.custService.fetchBySize(size).subscribe(
        Response=>
-       {this.products=Response}
+       {this.products=Response
+      this.isShown = false
+      }
      )
    }
 
@@ -36,11 +45,15 @@ export class ProductComponent implements OnInit {
     
   }
 
-  addToCart(productID:number, size:number){
-    this.custService.moveToCart(1, productID, size, this.currentUser.customerID).subscribe(
+
+
+  fetchProductInfo(productID:number){
+    this.custService.findProduct(productID).subscribe(
       response=>{
-        this.product=response
-        this.fetchProduct(size)
+        this.product = response
+        sessionStorage.setItem("productID", this.product.productID.toString())
+        this.router.navigate(["specificProduct"])
+        
       }
     )
   }

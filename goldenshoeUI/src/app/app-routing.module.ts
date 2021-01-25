@@ -8,6 +8,7 @@ import { CustomerRegisterComponent } from './customer-register/customer-register
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
+import { SpecificProductComponent } from './specific-product/specific-product.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path:'checkout',
     component: CheckoutComponent
+  },
+  {
+    path: 'specificProduct',
+    component: SpecificProductComponent
   }
   
 

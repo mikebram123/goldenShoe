@@ -1,5 +1,6 @@
 package com.and.goldenShoe.product;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -126,6 +127,26 @@ public class ProductService implements ProductAPI {
 		Set<ProductSizeAssignmentEntity> prods = prod.getAssignedProducts();
 		Stream<ProductSizeAssignmentEntity> productSizes = prods.stream();
 		return productSizes.anyMatch(shoeSize->shoeSize.getQuantity()>0 && shoeSize.getLinkedSize().getSize()==size);
+	}
+
+	@Override
+	public ProductEntity addProduct(int productID) {
+		System.out.println("Testing");
+		return proDAO.findById(productID).get();
+	}
+
+	@Override
+	public Set<Double> getSizes(int productID) {
+		ProductEntity product = proDAO.findById(productID).get();
+		Set<ProductSizeAssignmentEntity> sizes = product.getAssignedProducts();
+		Set<Double> availSizes = new HashSet<>();
+		for (ProductSizeAssignmentEntity a : sizes) {
+			if(a.getQuantity()>0) {
+				availSizes.add(a.getLinkedSize().getSize());
+			}
+		}
+		System.out.println("Test2323");
+		return availSizes;
 	}
 	
 	

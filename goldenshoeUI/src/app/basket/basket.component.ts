@@ -37,7 +37,7 @@ export class BasketComponent implements OnInit {
       productID:0,
       productName:"",
       productBrands:"",
-      productPrice:0
+      productPrice:0, productColour:"", productFit:"",productStyle:""
     }
     this.size={
       sizeID:0,
