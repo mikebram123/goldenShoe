@@ -1,6 +1,5 @@
 package com.and.goldenShoe.product;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.ws.rs.BeanParam;

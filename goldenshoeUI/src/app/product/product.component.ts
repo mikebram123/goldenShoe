@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit {
     this.products=[{
       productID:0, productBrands: "", productName:"", productPrice:0, productColour:"", productFit:"",productStyle:""
     }]
-    this.size1=0
+    this.size1=1
     this.product={
       productID:0, productBrands: "", productName:"", productPrice:0, productColour:"", productFit:"",productStyle:""
     }
@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.fetchProduct(1)
   }
 
 

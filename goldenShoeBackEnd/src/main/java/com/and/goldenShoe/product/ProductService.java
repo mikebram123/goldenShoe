@@ -145,7 +145,6 @@ public class ProductService implements ProductAPI {
 				availSizes.add(a.getLinkedSize().getSize());
 			}
 		}
-		System.out.println("Test2323");
 		return availSizes;
 	}
 	
