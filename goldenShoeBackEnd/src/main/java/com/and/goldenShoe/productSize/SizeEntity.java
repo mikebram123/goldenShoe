@@ -16,6 +16,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
+/**
+ * Contains data, relationships and methods needed to create a size entity
+ * 
+ * @author Michael Bramhall
+ */
+
 @Entity
 @Table(name="size")
 public class SizeEntity {
@@ -25,6 +31,7 @@ public class SizeEntity {
 	@FormParam("size")
 	private double size;
 	
+	//Each size has multiple products it links to
 	Set<ProductSizeAssignmentEntity> assignedSize = new HashSet<ProductSizeAssignmentEntity>();
 	
 	

@@ -1,6 +1,10 @@
 package com.and.goldenShoe.productBasketAssignment;
 
-
+/**
+ * Contains data, relationships and methods needed to create a productBasketAssignment entity
+ * 
+ * @author Michael Bramhall
+ */
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +37,6 @@ public class ProductBasketAssignmentEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_productSizeAssignmentID")
-//	@XmlTransient
 	public ProductSizeAssignmentEntity getLinkedSizes() {
 		return linkedSizes;
 	}
@@ -44,7 +47,6 @@ public class ProductBasketAssignmentEntity {
 
 	@ManyToOne
 	@JoinColumn(name="fk_BasketID")
-//	@XmlTransient
 	public BasketEntity getLinkedBasket() {
 		return linkedBasket;
 	}

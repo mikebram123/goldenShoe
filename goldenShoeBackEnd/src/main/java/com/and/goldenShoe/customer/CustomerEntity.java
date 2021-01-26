@@ -16,6 +16,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.and.goldenShoe.basket.BasketEntity;
 
+/**
+ * Contains data, relationships and methods needed to create a customer entity
+ * 
+ * @author Michael Bramhall
+ */
+
 @Entity
 @Table(name="customer")
 public class CustomerEntity {

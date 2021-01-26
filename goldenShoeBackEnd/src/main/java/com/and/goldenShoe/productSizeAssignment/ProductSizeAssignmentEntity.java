@@ -19,17 +19,24 @@ import com.and.goldenShoe.product.ProductEntity;
 import com.and.goldenShoe.productBasketAssignment.ProductBasketAssignmentEntity;
 import com.and.goldenShoe.productSize.SizeEntity;
 
+/**
+ * Contains data, relationships and methods needed to create a ProductSizeAssingment entity
+ * 
+ * @author Michael Bramhall
+ */
+
 @Entity
 @Table(name="product_size_assignment")
 public class ProductSizeAssignmentEntity {
 	
 	private int product_size_assignmentID;
 	
-	
+	//Each assignment has a specific product linked to a specific size
 	private ProductEntity linkedProduct;
 	
 	private SizeEntity linkedSize;
 	
+	//Quantity of that specific product in a specific size
 	@FormParam("quantity")
 	private int quantity;
 	
@@ -37,7 +44,7 @@ public class ProductSizeAssignmentEntity {
 	
 	
 	
-	
+	//Relationship between ProductSizeAssignment and basket
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="linkedSizes", cascade = CascadeType.ALL)
 	@XmlTransient
 	public Set<ProductBasketAssignmentEntity> getLinkedBaskets() {
@@ -50,7 +57,6 @@ public class ProductSizeAssignmentEntity {
 
 	@ManyToOne
 	@JoinColumn(name= "fk_productID")
-//	@XmlTransient
 	public ProductEntity getLinkedProduct() {
 		return linkedProduct;
 	}
@@ -61,7 +67,6 @@ public class ProductSizeAssignmentEntity {
 
 	@ManyToOne
 	@JoinColumn(name= "fk_sizeID")
-//	@XmlTransient
 	public SizeEntity getLinkedSize() {
 		return linkedSize;
 	}

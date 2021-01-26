@@ -19,10 +19,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 
+/**
+ * Contains data, relationships and methods needed to create a product entity
+ * 
+ * @author Michael Bramhall
+ */
+
 @Entity
 @Table(name="product")
 public class ProductEntity {
 	
+	//Required fields to create a product entity
 	private int productID;
 	
 	@FormParam("productBrands")

@@ -41,7 +41,13 @@ public class BasketService implements BasketAPI{
 	
 	@Autowired
 	BasketDAO baskDAO;
-
+	
+	/*
+	 * Returns ProductEntity that was added to the cart
+	 * Quantity that user bought is passed in, with size ordered, and productID ordered with there active customerID
+	 * Throws error if user orders more of the quantity than the shop has in stock
+	 * @see com.and.goldenShoe.basket.BasketAPI#addToCart(int, int, int, double)
+	 */
 	@Transactional
 	public ProductEntity addToCart(int quantity, int productID, int customerID, double size) throws IllegalArgumentException {
 		ProductEntity product = proDAO.findById(productID).get();
@@ -59,19 +65,22 @@ public class BasketService implements BasketAPI{
 			probasDAO.save(probas);
 			prodSize.setQuantity(prodSize.getQuantity()-quantity);
 			proSizeDAO.save(prodSize);
-			//			joinProductToAssignedProduct(productID, probas.getProduct_basket_assignmentID());
 			BasketEntity basket = findBasketByCustomerID(customerID);
 			basket.setTotalValue(basket.getTotalValue()+(product.getProductPrice()*quantity));
 			basDAO.save(basket);
 			joinBasketToAssignedProduct(basket.getBasketID(), probas.getProduct_basket_assignmentID());
 			joinBasketToProductSize(probas.getProduct_basket_assignmentID(), prodSize.getProduct_size_assignmentID());
-
 			break;
 		}
-
 		return product;
 	}
 
+	/*
+	 * Returns the active basket for the customerID
+	 * Only one basket active at a time
+	 * creates a new basket if one isn't active
+	 * @see com.and.goldenShoe.basket.BasketAPI#findBasketByCustomerID(int)
+	 */
 	@Transactional
 	public BasketEntity findBasketByCustomerID(int customerID) {
 		CustomerEntity cust = cusDAO.findById(customerID).get();
@@ -87,13 +96,14 @@ public class BasketService implements BasketAPI{
 			currentBasket = new BasketEntity();
 			basDAO.save(currentBasket);
 			cusServ.joinBasketAndCustomer(currentBasket.getBasketID(), customerID);
-
 		}
-
 		return currentBasket;
 	}
 
 
+	/*
+	 * Method joins the Basket and productBasketAssignedEntity together 
+	 */
 	@Transactional
 	public BasketEntity joinBasketToAssignedProduct(int basketID, int AssignedID) {
 		BasketEntity basket = basDAO.findById(basketID).get();
@@ -109,6 +119,9 @@ public class BasketService implements BasketAPI{
 	}
 
 
+	/*
+	 * Method joins productBasketAssignment with productSizeAssignment
+	 */
 	@Transactional 
 	public ProductSizeAssignmentEntity joinBasketToProductSize (int productBasketAssignmentID, int productSizeAssignmentID) {
 		ProductBasketAssignmentEntity proB = probasDAO.findById(productBasketAssignmentID).get();
@@ -123,12 +136,21 @@ public class BasketService implements BasketAPI{
 		return proS;
 	}
 
+	/*
+	 * Returns a set of products from the basketID passed
+	 * @see com.and.goldenShoe.basket.BasketAPI#fetchBasketProducts(int)
+	 */
 	@Override
 	public Set<ProductBasketAssignmentEntity> fetchBasketProducts(int basketID) {
 		BasketEntity basket = basDAO.findById(basketID).get();		
 		return basket.getBasketProducts();
 	}
 
+	/*
+	 * Returns BasketEntity from checkout
+	 * Switches currentBasket to false as no longer in use so a fresh one can be created
+	 * @see com.and.goldenShoe.basket.BasketAPI#checkout(int)
+	 */
 	@Override
 	@Transactional
 	public BasketEntity checkout(int basketID) {
@@ -140,6 +162,10 @@ public class BasketService implements BasketAPI{
 	}
 	
 	
+	/*
+	 * Deletes from basket before checkout
+	 * @see com.and.goldenShoe.basket.BasketAPI#deleteFromBasket(int)
+	 */
 	@Override
 	@Transactional
 	@Modifying
@@ -159,7 +185,7 @@ public class BasketService implements BasketAPI{
 		
 		bas.setTotalValue(bas.getTotalValue()-(prod.getProductPrice()*product.getQuantityOrdered()));
 		basDAO.save(bas);
-//		
+		
 		probasDAO.deleteById(product_basket_assignmentID);
 		System.out.println("ABC");
 		

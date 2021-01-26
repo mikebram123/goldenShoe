@@ -9,11 +9,11 @@ import com.and.goldenShoe.basket.BasketService;
 import com.and.goldenShoe.customer.CustomerService;
 import com.and.goldenShoe.product.ProductService;
 
-@Component //declare it as spring component
+@Component
 @ApplicationPath("/goldenshoe/")
 public class APIConfig extends ResourceConfig {
 
-	
+	//Each service class registered to enable services as API
 	public APIConfig() {
 		register(CORSFilter.class);
 		register(CustomerService.class);
