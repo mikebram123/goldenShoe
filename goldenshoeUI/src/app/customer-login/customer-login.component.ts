@@ -31,6 +31,10 @@ export class CustomerLoginComponent implements OnInit {
 
   }
 
+    /*
+   Called on login button which searches for username and password in database
+   navigates to profile page once logged in successfully
+   */
   customerLogin(user: string, password: string){
     this.custService.getCustomerLogin(user, password).then(()=>{
       this.router.navigate(['/profile']);

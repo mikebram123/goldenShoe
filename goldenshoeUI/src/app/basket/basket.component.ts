@@ -57,6 +57,9 @@ export class BasketComponent implements OnInit {
 
    }
 
+   /*
+   Fetches currentBasket with customerID
+   */
    fetchCurrentBasket(){
      this.custService.fetchCurrentBasket(this.currentUser.customerID).subscribe(
        response=>{
@@ -66,6 +69,9 @@ export class BasketComponent implements OnInit {
      )
    }
 
+    /*
+   Fetches product with basketID
+   */
    fetchBasketProducts(basketID: number){
      this.custService.fetchAssignedProducts(basketID).subscribe(
        response=>{
@@ -92,6 +98,9 @@ export class BasketComponent implements OnInit {
      )
    }
 
+    /*
+   currentBasket is call on init
+   */
   ngOnInit(): void {
     this.fetchCurrentBasket()
   }

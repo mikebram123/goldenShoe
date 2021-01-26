@@ -27,6 +27,7 @@ export class CustomerService {
     this.rootURL= "http://localhost:8080/goldenshoe"
    }
 
+   //Service method to add a new customer
    addNewCustomer(newCustomer){
     const httpOpts = {
       headers: new HttpHeaders({"Content-Type":"application/x-www-form-urlencoded"})
@@ -44,6 +45,7 @@ export class CustomerService {
     );
    }
 
+   //Service Method to login with customer data
    async getCustomerLogin(user: string, password: string){
     const httpOpts = {
       headers: new HttpHeaders({"Content-Type":"application/x-www-form-urlencoded"})
@@ -61,11 +63,13 @@ export class CustomerService {
       return result;
    }
 
+   //Removes customer from local storage
    customerLogout(){
     localStorage.removeItem("currentUser");
     this.isLoggedIn = false;
   }
 
+  //Returns true if customer is logged in
   checkIsLoggedIn(){
     if(localStorage.getItem("currentUser")){
       return true;
@@ -74,11 +78,13 @@ export class CustomerService {
     }
   }
 
+  //Calls the list all method in the api
   fetchAllProducts(): Observable<Product[]> {
     return this.httpsvc.get<Product[]>(this.rootURL+'/product/listAll')
     
   }
 
+  //Calls the findbysize method in the api
   fetchBySize(size: number): Observable<Product[]>{
     var contentData = 
             "size=" + size
@@ -91,6 +97,7 @@ export class CustomerService {
     return this.httpsvc.post<Product[]>("http://localhost:8080/goldenshoe/product/findBySize", contentData, httpOptions)
   }
 
+  //Calls the addToCart method in the api
   moveToCart(quantity: number, productID:number, size:number, customerID: number): Observable<Product>{
     var contentData=
         "quantity=" + quantity+ "&productID=" + productID + "&size=" + size + "&customerID=" + customerID
@@ -102,6 +109,7 @@ export class CustomerService {
     return this.httpsvc.post<Product>("http://localhost:8080/goldenshoe/basket/addToCart", contentData, httpOptions)
   }
 
+  //Calls fetchCurrentBasket method in the api
   fetchCurrentBasket(customerID:number):Observable<Basket>{
     var contentData=
       "customerID="+customerID

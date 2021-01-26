@@ -18,12 +18,16 @@ export class CustomerRegisterComponent implements OnInit {
 
    }
 
+   /*
+   Method to add new customer once registered successfully routes to login page
+   */
    addNewCustomer(newCustomer: Customer){
      this.custService.addNewCustomer(newCustomer);
      this.router.navigate(['/login']);
    }
    
 
+   //Validators required on register form
   ngOnInit(): void {
     this.customerRegisterForm = this.formBuilder.group({
       customerName: ['', Validators.required],
@@ -41,6 +45,7 @@ export class CustomerRegisterComponent implements OnInit {
   get f(){ return this.customerRegisterForm.controls; }
   get isEmailMismatch(){return this.customerRegisterForm.getError('emailMismatch')}
 
+  //Submits form if no errors exist
   onSubmit(newCustomer){
     this.submitted=true;
 
