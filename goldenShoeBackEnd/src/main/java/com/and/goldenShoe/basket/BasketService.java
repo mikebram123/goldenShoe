@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
 
 import com.and.goldenShoe.customer.CustomerDAO;
@@ -37,6 +38,9 @@ public class BasketService implements BasketAPI{
 
 	@Autowired
 	CustomerService cusServ;
+	
+	@Autowired
+	BasketDAO baskDAO;
 
 	@Transactional
 	public ProductEntity addToCart(int quantity, int productID, int customerID, double size) throws IllegalArgumentException {
@@ -133,6 +137,35 @@ public class BasketService implements BasketAPI{
 		basDAO.save(basket);
 		System.out.println("Test");
 		return basket;
+	}
+	
+	
+	@Override
+	@Transactional
+	@Modifying
+	public ProductBasketAssignmentEntity deleteFromBasket(int product_basket_assignmentID) {
+		System.out.println("hi");
+		ProductBasketAssignmentEntity product = probasDAO.findById(product_basket_assignmentID).get();
+		System.out.println(product);
+		BasketEntity bas = product.getLinkedBasket();
+		System.out.println(bas);
+		ProductSizeAssignmentEntity proS = product.getLinkedSizes();
+		System.out.println(proS);
+		ProductEntity prod = proS.getLinkedProduct();
+		System.out.println(prod);
+		
+		proS.setQuantity(proS.getQuantity()+product.getQuantityOrdered());
+		proSizeDAO.save(proS);
+		
+		bas.setTotalValue(bas.getTotalValue()-(prod.getProductPrice()*product.getQuantityOrdered()));
+		basDAO.save(bas);
+//		
+		probasDAO.deleteById(product_basket_assignmentID);
+		System.out.println("ABC");
+		
+		return product;
+		
+		
 	}
 
 }

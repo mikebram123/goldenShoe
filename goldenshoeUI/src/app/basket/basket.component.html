@@ -1,24 +1,32 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
 <div>
-    <table>
+    <table class="content-table">
         <thead>
             <tr>
-                <th>Product Name</th>
-                <th>Product Brand</th>
-                <th>Product Price</th>
-                <th>Product Quantity</th>
-                <th>Product Size</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Size</th>
             </tr>
         </thead>
+        <tbody>
         <tr *ngFor="let p of productBasketArray">
             <td>{{p.linkedSizes.linkedProduct.productName}}</td>
             <td>{{p.linkedSizes.linkedProduct.productBrands}}</td>
             <td>{{p.linkedSizes.linkedProduct.productPrice}}</td>
             <td>{{p.quantityOrdered}}</td>
-            <td>{{p.linkedSizes.linkedSize.size}}</td>
-           
+            <td>{{p.linkedSizes.linkedSize.size}}</td>           
         </tr>
         <td> 
             <button (click)="checkout()">Checkout</button>
         </td>
+    </tbody>
     </table>
 </div>
+</body>

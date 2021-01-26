@@ -161,7 +161,16 @@ return this.httpsvc.post<Number[]>("http://localhost:8080/goldenshoe/product/fin
 }
 
 
-
+delete(productBasketAssignmentID:number):Observable<ProductBasketAssignment>{
+  var contentData=
+  "productBasketAssignmentID="+productBasketAssignmentID
+  const httpOptions={
+    headers: new HttpHeaders(
+      {"Content-Type":"application/x-www-form-urlencoded"}
+      )
+  }
+return this.httpsvc.post<ProductBasketAssignment>("http://localhost:8080/goldenshoe/basket/delete", contentData, httpOptions) 
+}
 
 
 

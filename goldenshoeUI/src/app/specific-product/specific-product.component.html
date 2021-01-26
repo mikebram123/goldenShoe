@@ -1,17 +1,35 @@
-<p>specific-product works!</p>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-<table>
+<body>
+    <div class="content-table">
+        <img class="d-block w-100" src="assets/images/{{product.productID}}.jpg" data-color="firebrick" alt=" Trainers">
+    </div>
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Colour</th>
+            <th>Fit</th>
+            <th>Style</th>
+        </tr>
+    </thead>
+    <tbody>
     <tr>
-        <th>
-            {{product.productName}}
-        </th>
-    </tr>
-    <tr>
-        <td>
-            {{product.productPrice}}
-        </td>
-    </tr>
+        <td>{{product.productName}}</td>
+        <td>{{product.productBrands}}</td>
+        <td>{{product.productPrice}}</td>
+        <td>{{product.productColour}}</td>
+        <td>{{product.productFit}}</td>
+        <td>{{product.productStyle}}</td>
+    </tr> 
+</tbody>
+</table>
+<table class="content-table">
     <tr *ngFor="let s of sizes let i of index">
         <td>
             {{s}}
@@ -21,6 +39,4 @@
         </td>
     </tr>
 </table>
-<div>
-<img class="d-block w-100" src="assets/images/{{product.productID}}.jpg" data-color="firebrick" alt=" Trainers">
-</div>
+</body>

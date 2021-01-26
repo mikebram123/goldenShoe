@@ -83,6 +83,15 @@ export class BasketComponent implements OnInit {
      )
    }
 
+   delete(productBasketAssignmentID){
+     this.custService.delete(productBasketAssignmentID).subscribe(
+       response =>{
+         this.productBasketAssignment = response
+         this.fetchCurrentBasket
+       }
+     )
+   }
+
   ngOnInit(): void {
     this.fetchCurrentBasket()
   }

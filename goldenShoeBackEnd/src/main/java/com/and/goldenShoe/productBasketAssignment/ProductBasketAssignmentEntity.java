@@ -1,5 +1,7 @@
 package com.and.goldenShoe.productBasketAssignment;
 
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.ws.rs.FormParam;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 import com.and.goldenShoe.basket.BasketEntity;
 import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
@@ -17,6 +19,7 @@ import com.and.goldenShoe.productSizeAssignment.ProductSizeAssignmentEntity;
 @Table(name="product_basket_assignment")
 public class ProductBasketAssignmentEntity {
 	
+	@FormParam("product_basket_assignmentID")
 	private int product_basket_assignmentID;
 	
 	@FormParam("quantityOrdered")
@@ -41,7 +44,7 @@ public class ProductBasketAssignmentEntity {
 
 	@ManyToOne
 	@JoinColumn(name="fk_BasketID")
-	@XmlTransient
+//	@XmlTransient
 	public BasketEntity getLinkedBasket() {
 		return linkedBasket;
 	}
